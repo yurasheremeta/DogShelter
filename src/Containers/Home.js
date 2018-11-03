@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { Title } from '../Components/Title';
-import Apiclient from '../ApiClient';
-import { Review } from '../Components/Review';
-import WithSpinner from '../Components/withSpinner';
+import Title from '../components/Title';
+import Apiclient from '../services/ApiClient';
+import Review from '../components/Review';
 import '../index.css';
+import Post from '../components/Post';
+// eslint-disable-next-line import/no-duplicates
 
-import Post from '../Components/Post';
-
-import Spinner from '../Components/withSpinner';
-import withSpinner from '../Components/withSpinner';
+// eslint-disable-next-line import/no-duplicates
+import withSpinner from '../components/withSpinner';
+import Button from '../components/Button';
 
 
 const PostWithSpinner = withSpinner(Post);
-
+const buttonDiv = styled.div`
+margin: auto;
+position: absolute;
+`;
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       breeds: [],
-      isLoading: false
-    }
-
+      isLoading: false,
+    };
   }
 
   componentDidMount() {
     this.handleFetcBreeds(3);
   }
-
 
   handleFetcBreeds = (num) => {
     this.setState({ isLoading: true });
@@ -39,44 +42,40 @@ class App extends Component {
       this.setState({ breeds: photo, isLoading: false });
     });
   };
+
   seeMore = (num) => {
-    const breedsMore = [];
     Apiclient.get(`https://dog.ceo/api/breeds/image/random/${num}`).then((breedsMore) => {
       console.log(breedsMore);
-
-      const photo = breedsMore.message;
       const breeds1 = this.state.breeds.concat(breedsMore.message);
-
       console.log('breeds1: ', breeds1);
-
       this.setState({ breeds: breeds1 });
     });
   }
 
-
-
   render() {
     return (
-      <div className="App">
-     
+      <div>
+        <div className="App">
         <div id="title">
           <Title />
         </div>
         <div id="container">
-          <Spinner isLoading={true} />
           <PostWithSpinner isLoading={this.state.isLoading} breeds={this.state.breeds} />
-
         </div>
-        <button id="seeMore" onClick={() => this.seeMore(5)}>
-          see more
-           </button>
-        <div>
-          <Review />
-        </div>
+        <buttonDiv>
+           <Button onClick={() => this.seeMore(5)}>see More</Button>
+           <Review />
+        </buttonDiv>
       </div>
 
+      </div>
     );
   }
 }
+
+App.propTypes = {
+  breeds: PropTypes.array,
+  isLoading: PropTypes.bool,
+};
 
 export default App;

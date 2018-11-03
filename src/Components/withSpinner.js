@@ -1,20 +1,11 @@
-import React , {Component} from 'react';
+import React, { Component } from 'react';
+import Spinner from './Spinner';
 
-    
-const withSpinner = (WrappedComponent) => {
-  return class WithSpinner extends Component {
-
-    render(){
-
-      const { isLoading } = this.props;
-
-      {
-        return isLoading ? <div>Loading...</div> : <WrappedComponent {...this.props}/>
-      }
-      
-    }
+const withSpinner = WrappedComponent => class WithSpinner extends Component {
+  render() {
+    const { isLoading } = this.props;
+    return isLoading ? <Spinner>Loading..</Spinner> : <WrappedComponent {...this.props}/>;
   }
-}    
-
+};
 
 export default withSpinner;
