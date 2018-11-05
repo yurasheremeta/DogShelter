@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import './index.css';
-import Home from './containers/Home';
+import Home from './containers/Home/index';
 import BreedsOverview from './containers/BreedsOverview';
 import Navbar from './components/Navbar';
 
