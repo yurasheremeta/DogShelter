@@ -2,28 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Title from '../../components/Title';
-
 import '../../index.css';
 import Post from '../../components/Post';
 import withSpinner from '../../components/withSpinner';
-import { getImagesFOrOverview } from '../../actions/actions';
-// import { getImagesThunk } from '../../actions/actions';
 
 const PostWithSpinner = withSpinner(Post);
-
 
 class Home extends Component {
   componentDidMount() {
     const { getImages } = this.props;
     getImages();
-    getImagesFOrOverview();
   }
 
   render() {
     const {
       isLoading,
       breeds,
+      // minDisplayAmount,
+      getMoreBreeds,
     } = this.props;
+    console.log(breeds);
     return (
           <React.Fragment>
             <div className="App">
@@ -33,10 +31,12 @@ class Home extends Component {
         <div id="container">
           <PostWithSpinner isLoading={isLoading} breeds={breeds} />
         </div>
+        <div>
+          <button onClick = {getMoreBreeds}>See more</button>
+        </div>
 
       </div>
-
-          </React.Fragment>
+      </React.Fragment>
 
     );
   }
@@ -44,8 +44,8 @@ class Home extends Component {
 Home.propTypes = {
   isLoading: PropTypes.bool,
   breeds: PropTypes.array,
-  // loadBreeds: PropTypes.func,
   getImages: PropTypes.func,
+  getMoreBreeds: PropTypes.func,
 
 };
 

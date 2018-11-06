@@ -1,1 +1,4 @@
-export const selectBreeds = state => state.breeds || [];
+export const selectBreeds = (state) => {
+  console.log(state);
+  return state.breeds || [];
+};

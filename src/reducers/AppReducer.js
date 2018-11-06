@@ -1,30 +1,27 @@
 import {
-  // GET_IMAGES,
-  //  GET_IMAGE_OVERVIEW,
+
   REQUEST_BREEDS,
-  // RECEIVE_BREEDS,
   ERROR_BREEDS,
-  BREEDS,
+  RECEIVE_BREEDS,
+  GET_MORE_BREEDS_FULFILLED,
 } from '../actions/actions';
-// import store from '../store/configureStore';
 
 const initialState = {
   isLoading: false,
   breeds: [],
+  minDisplayAmount: 3,
 };
 
 function getImages(state = initialState, action) {
-   console.log(action);
+  console.log(action);
   switch (action.type) {
     case REQUEST_BREEDS:
-      // console.log(action.payload);
       return ({
         ...state,
         isLoading: true,
-        breeds: [],
       });
-    case BREEDS: {
-      // console.log(action.payload);
+    case RECEIVE_BREEDS: {
+      console.log('ACTIPN: ', action.payload);
       return ({
         ...state,
         isLoading: false,
@@ -37,17 +34,11 @@ function getImages(state = initialState, action) {
         isLoading: false,
         breeds: [],
       });
-    // case BREEDS: {
-    //   return ({
-    //     ...state,
-    //     breeds: action.payload.message,
-    //   });
-    // }
-    // case GET_IMAGE_OVERVIEW:
-    //   return ({
-    //     ...state,
-    //     breeds: action.value.message,
-    //   });
+    case GET_MORE_BREEDS_FULFILLED:
+      return ({
+        ...state,
+        breeds: state.breeds.concat(action.payload.message),
+      });
     default:
       return state;
   }

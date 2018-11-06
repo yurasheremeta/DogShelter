@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 import { bindActionCreators } from 'redux';
 import Home from './Home';
 
 import {
   getImages,
-  getImagesFOrOverview,
+  getMoreBreeds,
 } from '../../actions/actions';
 import { selectBreeds } from '../../selectors/selectors';
 
@@ -17,7 +16,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
   getImages,
-  getImagesFOrOverview,
+  getMoreBreeds,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
